@@ -3,7 +3,7 @@ require 'sinatra'
 require_relative 'lib/crashlytics_post'
 
 use Rack::Auth::Basic, "Restricted Area" do |username, password|
-  [username, password] == [ENV['USERNAME'], ENV['PASSWORD']]
+  [username, password] == ['test', 'test']
 end
 
 post '/' do
