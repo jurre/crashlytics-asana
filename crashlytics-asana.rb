@@ -7,9 +7,12 @@ use Rack::Auth::Basic, "Restricted Area" do |username, password|
 end
 
 post '/' do
-  post = CrashlyticsPost.from_json(request.body.read.to_s)
+  json_string = request.body.read.to_s
+  
+  puts JSON.parse(json_string)['event']
   # respond with a 200 to the Crashlytics verification request
-  return if JSON.parse(request.body.read.to_s)[:event]  == 'verification'
-
+  return if JSON.parse(json_string)['event']  == 'verification'
+  
+  post = CrashlyticsPost.from_json(json_string)
   post.create_asana_task!
 end
