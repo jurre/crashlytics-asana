@@ -9,7 +9,7 @@ end
 post '/' do
   post = CrashlyticsPost.from_json(request.body.read.to_s)
   # respond with a 200 to the Crashlytics verification request
-  return if post.event == 'verification'
+  return if JSON.parse(request.body.read.to_s)[:event]  == 'verification'
 
   post.create_asana_task!
 end
