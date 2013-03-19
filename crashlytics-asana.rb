@@ -2,9 +2,9 @@ require 'rubygems'
 require 'sinatra'
 require_relative 'lib/crashlytics_post'
 
-# use Rack::Auth::Basic, "Restricted Area" do |username, password|
-#   [username, password] == [ENV['USERNAME'], ENV['PASSWORD']]
-# end
+use Rack::Auth::Basic do |username, password|
+  [username, password] == [ENV['USERNAME'], ENV['PASSWORD']]
+end
 
 post '/' do
   json_string = request.body.read.to_s
